@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link rel="stylesheet" href="scripts/uniform-control/lib/uniform/themes/default/css/uniform.default.css">
+    <link rel="stylesheet" href="scripts/sidebar-v2-master/css/leaflet-sidebar.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="scripts/uniform-control/src/UniformControl.js"></script>
+
+</head>
+
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#reaction" role="tab"><i class="fa fa-user"></i></a></li>
+                <li><a href="#links" role="tab"><i class="fa fa-external-link"></i></a></li>
+                <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i
+                            class="fa fa-github"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    MUNI Lines Shutdown
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+
+                <p align="justify">
+                    San Francisco's public transportation system has been hit hard by the pandemic. On March 19, Gov.
+                    Gavin Newsom announced a stay-at-hone order to inhibit the spread of COVID-19.
+                    <br /><br />
+                    MUNI's system carries over 700,000 people on an average weekday. Those numbers have plummeted under
+                    stay-at-home order. During the following week, the city's public transit system, MUNI, has reported
+                    an estimated weekly loss of $1 million due to the decrease in ridership.
+                    <br /><br />
+                    At the end of March, MUNI announced that it would shut down all train routes, and 51 out of 68 bus
+                    routes. Since then, all train routes have been replaced by temporary bus services. The 17 remaining
+                    bus routes focus on serving essential workers, who cannot stay at home during the shelter-in-place
+                    order.
+                </p>
+
+                <p align="justify">
+                    <b>Toggle the button below to see how the MUNI decision has changed the public transportation routes
+                        available
+                        to San Francico residents.</b>
+                </p>
+
+                <div id="layer-control"></div>
+            </div>
+
+            <div class="sidebar-pane" id="reaction">
+                <h1 class="sidebar-header">
+                    Public Reaction
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+
+                <p align="justify">
+                    Some residents have expressed inconvenience caused by the MUNI decision. Toggle the buttons below
+                    to see people's feedback specific to bus lines affected by the shutdown.
+                </p>
+                <hr>
+                <p>
+                    <b>Line 43</b>
+                <div id="layer-43-control"></div>
+                </p>
+
+                <br /><br />
+                <p>
+                    Tracy June, on 05/14/2020
+                    <br />
+                    "Still no 43 Bus service. Why hasn’t this important line been reinstated?
+                    My neighborhood has been completely without public transportation for over 5 weeks!!!"
+                </p>
+                <p>
+                    Peter Parkour, on 5/17/2020
+                    <br />
+                    "It's crazy. I would take the 43 from the beginning of the line to the end of the line and there
+                    really isn't any other way unless I want to transfer a bunch of times and then walk a good 15
+                    minutes. It's one of those lines that will literally take you from one side of the city to the
+                    other."
+                </p>
+                <p>
+                    Unbias User, on 05/15/2020
+                    <br />
+                    "Yup i got no idea what they doing. It better for them remove the 12 Pacific because no riding and
+                    add back the 43 Masonic and 48 Quintara to cover increased activity and support local business
+                    through curbside pickup."
+                </p>
+                <p>
+                    John Moss, on April
+                    <br />
+                    "You seriously need to give thought to reinstating either the 6 or at least the 43. Both pass by
+                    UCSF Parnassus, and the 43 in particular passes close to several grocery stores (Lucky, Target,
+                    Trader Joe's, etc)."
+                </p>
+                <hr>
+
+                <p>
+                    <b>Line 6</b>
+                <div id="layer-6-control"></div>
+                </p>
+                <br /><br />
+
+                <p>
+                    Yomad Brow, on 05/14/2020
+                    <br />
+                    "For those wondering why their routes (6, 7, 43, etc.) are not reinstated - the reason is simple.
+                    There are just more demands in routes serving Muni Equity neighborhoods that's why most resources
+                    are going toward those areas."
+                </p>
+                <p>
+                    Rob Anderson, on 05/14/2020
+                    <br />
+                    "Still no line that goes anywhere near the Haight. No #6 and no #7. Why is that?"
+                    <br />
+                    "Yes, but you can't get the N from anywhere west of Haight and Divisadero. Those of us fit enough to
+                    walk distances can make do, but the disabled and the elderly often have a problem. And, as the city
+                    opens, businesses on Haight Street will be hurt by the lack of a #6 or #7."
+                </p>
+                <hr>
+            </div>
+
+            <div class="sidebar-pane" id="links">
+                <h1 class="sidebar-header">Related Links<span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <p>
+                    <ul>
+                        <b>Streets Blog SF</b>
+                        <li><a href=https://bit.ly/3gXWS4B>(March 26) Muni to Shut Down all Trains March 30</a></li>
+                        <br />
+                        <b>SFMTA Website</b>
+                        <li><a href=https://bit.ly/3cIJwpg>(April 22) COVID-19 Ambassadors Help You Ride Muni Correctly</a></li>
+                        <li><a href=https://bit.ly/3hc3A78>(May 16) Select Increases to Muni Service Frequency Starting May 16</a></li>
+                        <li><a href=https://www.sfmta.com/blog/service-update-during-covid-19>(May 16) Service Update During COVID-19
+                        </a></li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="mapid"></div>
+    <script src="scripts/sidebar-v2-master/js/leaflet-sidebar.js"></script>
+    <script type="text/javascript" src="data/test-muni-5.js"></script>
+    <script type="text/javascript" src="data/bay-area.js"></script>
+    <script type="text/javascript" src="data/zipByIncome_copy.js"></script>
+    <script type="text/javascript" src="data/zipData.js"></script>
+    <script type="text/javascript" src="data/config.js"></script>
+    <script type="text/javascript">
+
+        // Load map
+        var map = L.map('mapid').setView([37.7749, -122.4394], 13);
+
+        // Load line and shapefile data
+        var muniLines = data;
+        var line43 = data_43;
+        var line6 = data_6;
+        var zipcodesIncome = zipAllData;
+
+        // Load mapbox API Key
+        var mapbox_api_key = my_mapbox_key;
+
+        // var bayAreaShapefile = bayArea;
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/light-v9',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: mapbox_api_key
+        }).addTo(map);
+
+        // Set line style
+        var openStyle = {
+            "color": "#25D366",
+            "weight": 3,
+            "opacity": 1
+        };
+
+        var closedStyle = {
+            "color": "#910c1b",
+            "weight": 0.5,
+            "opacity": 0.8
+        };
+
+        var highlightStyle = {
+            "color": "#FFA500",
+            "weight": 3,
+            "opacity": 1
+        };
+
+        var shadeStyle = {
+            "color": "#808080",
+            "weight": 3,
+            "opacity": 0.25
+        };
+
+        allLines = L.geoJSON(muniLines, {
+            style: shadeStyle,
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("<b>Name of Line: </b>" + feature.route_name);
+            }
+        }).addTo(map);
+
+        // filter lines by "open" parameter
+        openLines = L.geoJSON(muniLines, {
+            style: openStyle,
+            filter: function (feature, layer) {
+                return feature.open === 1
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("<b>Name of Line: </b>" + feature.route_name);
+            }
+        });
+
+        closedLines = L.geoJSON(muniLines, {
+            style: closedStyle,
+            filter: function (feature, layer) {
+                return feature.open === 0;
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("<b>Name of Line: </b>" + feature.route_name);
+            }
+        });
+
+        line43Display = L.geoJSON(line43, {
+            style: highlightStyle,
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("<b>Name of Line: </b>" + feature.route_name);
+            }
+        });
+
+        line6Display = L.geoJSON(line6, {
+            style: highlightStyle,
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("<b>Name of Line: </b>" + feature.route_name);
+            }
+        });
+
+        // determine color scheme based on income level
+        function getColor(d) {
+            return d > 100000 ? '#EBEBEB' :
+                d > 85000 ? '#C5C5C5' :
+                    d > 70000 ? '#B3B3B3' :
+                        d > 55000 ? '#8E8E8E' :
+                            d > 40000 ? '#6C6C6C' :
+                                d > 25000 ? '#4B4B4B' :
+                                    d > 10000 ? '#2D2D2D' :
+                                        '#1F1F1F';
+        }
+
+        function style(feature) {
+            return {
+                fillColor: getColor(feature.properties.mpci),
+                weight: 2,
+                opacity: 0.7,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.6
+            };
+        }
+
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArry: '',
+                fillOpacity: 0.8
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            };
+            info.update(layer.feature.properties);
+        };
+
+        // set up user interaction
+        function resetHighlight(e) {
+            bayAreaSHP.resetStyle(e.target);
+            e.target.bringToBack();
+            info.update();
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        var bayAreaSHP = L.geoJSON(zipcodesIncome, {
+            style: style,
+            onEachFeature: onEachFeature
+        });
+
+        // add info control
+        var info = L.control();
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            this._div.innerHTML = (props ?
+                '<h4>Zipcode:</h4>'
+                + props.zipcode
+                + '<br /><br /><h4>Median Per Capita Income</h4>'
+                + '<b>$' + props.mpci + '</b>' + ' (±$' + props.moe_mpci + ')'
+                + '<br /><br /><h4>% of Public Transit Commuters</h4>'
+                + props.popc + '%' + ' (±' + props.moe_popc + '%)'
+                : 'Hover Over a Zip-code Area');
+        };
+
+        info.addTo(map);
+
+        // add legend
+        var legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [10000, 25000, 40000, 55000, 70000, 85000, 100000],
+                labels = [];
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                    '$' + grades[i] + (grades[i + 1] ? '&ndash;$' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        // add legend
+        legend.addTo(map);
+
+        // add sidebar
+        var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+        // add layer controls
+        var lineOverlays = {
+        };
+
+        var shpOverlays = {
+            "Active After March 30": openLines,
+            "Income Level by Zipcodes": bayAreaSHP,
+        };
+
+        layer = L.control.layers(lineOverlays, shpOverlays, { collapsed: false }).addTo(map);
+        var htmlObject = layer.getContainer();
+        var container = document.getElementById('layer-control');
+        function setParent(el, newParent) {
+            newParent.appendChild(el);
+        }
+        setParent(htmlObject, container);
+
+        var line43Overlays = {
+            "Show Line": line43Display
+        }
+
+        layer = L.control.layers(lineOverlays, line43Overlays, { collapsed: false }).addTo(map);
+        var htmlObject = layer.getContainer();
+        var container = document.getElementById('layer-43-control');
+        function setParent(el, newParent) {
+            newParent.appendChild(el);
+        }
+        setParent(htmlObject, container);
+
+        var line6Overlays = {
+            "Show Line": line6Display
+        }
+
+        layer = L.control.layers(lineOverlays, line6Overlays, { collapsed: false }).addTo(map);
+        var htmlObject = layer.getContainer();
+        var container = document.getElementById('layer-6-control');
+        function setParent(el, newParent) {
+            newParent.appendChild(el);
+        }
+        setParent(htmlObject, container);
+    </script>
+</body>
+
+</html>
